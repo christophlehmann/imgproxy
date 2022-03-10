@@ -1,0 +1,36 @@
+{
+  "name": "christophlehmann/imgproxy",
+  "description": "TYPO3 Extension for serving images with imgproxy.",
+  "type": "typo3-cms-extension",
+  "license": [
+    "GPL-2.0-or-later"
+  ],
+  "keywords": [
+    "images",
+    "compression",
+    "performance",
+    "webvitals"
+  ],
+  "support": {
+    "issues": "https://github.com/christophlehmann/imgproxy"
+  },
+  "authors": [
+    {
+      "name": "Christoph Lehmann",
+      "email": "post@christophlehmann.eu"
+    }
+  ],
+  "require": {
+    "typo3/cms-core": "^10.4 || ^11.5"
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "imgproxy"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Lemming\\ImgProxy\\": "Classes/"
+    }
+  }
+}

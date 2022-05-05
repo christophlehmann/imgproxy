@@ -2,9 +2,6 @@
 
 namespace Lemming\ImgProxy\Service;
 
-use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-
 class UrlBuilder
 {
     protected $imgProxyUrl;
@@ -17,11 +14,14 @@ class UrlBuilder
 
     protected $options = [];
 
-    public function __construct(string $imgProxyUrl, $key, $salt)
+    public function __construct(string $imgProxyUrl, string $key = null, string $salt = null)
     {
         $this->imgProxyUrl = $imgProxyUrl;
-        $this->key = pack("H*" , $key);
-        $this->salt = pack("H*" , $salt);
+
+        if ($key !== '' && $salt !== '') {
+            $this->key = pack("H*", $key);
+            $this->salt = pack("H*", $salt);
+        }
     }
 
     public function setSourceUrl(string $sourceUrl)
@@ -85,12 +85,17 @@ class UrlBuilder
     {
         $this->options[] = rtrim(strtr(base64_encode($this->sourceUrl), '+/', '-_'), '=');
         $unsignedPath = '/' . implode('/', $this->options);
-        $sha256 = hash_hmac('sha256', $this->salt . $unsignedPath, $this->key, true);
-        $sha256Encoded = base64_encode($sha256);
-        $signature = str_replace(["+", "/", "="], ["-", "_", ""], $sha256Encoded);
 
-        $baseUrl = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('imgproxy', 'imgproxyUrl');
+        if (!empty($this->key)) {
+            $sha256 = hash_hmac('sha256', $this->salt . $unsignedPath, $this->key, true);
+            $sha256Encoded = base64_encode($sha256);
+            $signature = str_replace(["+", "/", "="], ["-", "_", ""], $sha256Encoded);
 
-        return rtrim($baseUrl, '/') . '/' . $signature . $unsignedPath;
+            $url = rtrim($this->imgProxyUrl, '/') . '/' . $signature . $unsignedPath;
+        } else {
+            $url = rtrim($this->imgProxyUrl, '/') . '/insecure' . $unsignedPath;
+        }
+
+        return $url;
     }
 }

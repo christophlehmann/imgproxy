@@ -76,6 +76,11 @@ class UrlBuilder
         $this->options[] = 'el:1';
     }
 
+    public function setResizeType(string $resizeType)
+    {
+        $this->options[] = 'rt:' . $resizeType;
+    }
+
     public function generate(): string
     {
         $this->options[] = rtrim(strtr(base64_encode($this->sourceUrl), '+/', '-_'), '=');

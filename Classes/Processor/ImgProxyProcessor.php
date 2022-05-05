@@ -67,6 +67,7 @@ class ImgProxyProcessor implements ProcessorInterface
                 ($cropArea->x + ($cropArea->width / 2)) / $sourceFileWidth,
                 ($cropArea->y + ($cropArea->height / 2)) / $sourceFileHeight,
             );
+            $urlBuilder->setResizeType('force');
         } elseif ($cropData instanceof Area) {
             $urlBuilder->setCrop(
                 $cropData->getWidth(),
@@ -75,6 +76,12 @@ class ImgProxyProcessor implements ProcessorInterface
                 ($cropData->getOffsetLeft() + ($cropData->getWidth() / 2)) / $sourceFileWidth,
                 ($cropData->getOffsetTop() + ($cropData->getHeight() / 2)) / $sourceFileHeight,
             );
+            $urlBuilder->setResizeType('force');
+        } elseif (
+            str_ends_with($processingConfiguration['width'], 'c') ||
+            str_ends_with($processingConfiguration['height'], 'c')
+        ) {
+            $urlBuilder->setResizeType('fill');
         }
 
         $processedFile->setName($task->getTargetFileName());

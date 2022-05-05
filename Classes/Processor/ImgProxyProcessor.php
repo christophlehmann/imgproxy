@@ -24,9 +24,13 @@ class ImgProxyProcessor implements ProcessorInterface
 
     public function canProcessTask(TaskInterface $task)
     {
+        $allowedFileExtensions = GeneralUtility::trimExplode(',',
+            empty($this->configuration['allowedExtensions']) ? 'jpg,jpeg,webp,avif,png,gif,tiff' : $this->configuration['allowedExtensions']
+        );
         return (
-            $task->getSourceFile()->getStorage()->isPublic()
-            && in_array(strtolower($task->getSourceFile()->getExtension()), GeneralUtility::trimExplode(',', $this->configuration['allowedExtensions'] ?? ''))
+            !empty($this->configuration['imgproxyUrl'])
+            && $task->getSourceFile()->getStorage()->isPublic()
+            && in_array(strtolower($task->getSourceFile()->getExtension()), $allowedFileExtensions)
             && in_array($task->getName(), ['Preview', 'CropScaleMask'], true)
             && $task->getSourceFile()->getProperty('width') > 0
             && $task->getSourceFile()->getProperty('height') > 0

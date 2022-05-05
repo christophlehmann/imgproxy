@@ -14,7 +14,11 @@ It does not store thumbnail informations in `sys_file_processedfile` nor save ge
 
 ## Configuration
 
-Set `baseUrl`, `key` and `salt` in extension configuration module.
+* `improxyUrl` is the url of imgproxy.
+* `key` & `salt` are used for signing the urls. Generate them with `echo $(xxd -g 2 -l 64 -p /dev/random | tr -d '\n')`.
+* `helperUrl` can be used to tell imgproxy how it reaches the source image. Handy in development environment: Set it to the projects live url and you don't need the images locally.
+* `allowedExtensions` List of file extensions that should be handled with imgproxy
+* `formatQuality` Can be used to define different compressions for avif,webp,.. Default: empty (TYPO3s quality setting is used). Example: `jpeg:70:avif:40:webp:60` 
 
 ## Run imgproxy locally with docker
 

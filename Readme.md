@@ -6,7 +6,7 @@ formats like webp and avif when the client supports them.
 Basically TYPO3 now just renders a processing url and imgproxy serves the resulting image. The image processing is 
 really fast compared to GraphicsMagick and ImageMagick and less memory hungry.
 
-It does not store thumbnail informations in `sys_file_processedfile` nor save generated images locally.
+It does not store thumbnail informations in `sys_file_processedfile` nor save generated images locally, so for production usage a caching proxy is highly recommended.
 
 ## Installation
 

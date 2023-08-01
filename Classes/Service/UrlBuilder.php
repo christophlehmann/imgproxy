@@ -49,7 +49,7 @@ class UrlBuilder
 
     public function setFilename(string $filename)
     {
-        $this->options[] = 'fn:' . $filename;
+        $this->options[] = 'fn:' . $this->encodeUrl($filename) . ':t';
         return $this;
     }
 
@@ -83,7 +83,7 @@ class UrlBuilder
 
     public function generate(): string
     {
-        $this->options[] = rtrim(strtr(base64_encode($this->sourceUrl), '+/', '-_'), '=');
+        $this->options[] = $this->encodeUrl($this->sourceUrl);
         $unsignedPath = '/' . implode('/', $this->options);
 
         if (!empty($this->key)) {
@@ -97,5 +97,10 @@ class UrlBuilder
         }
 
         return $url;
+    }
+
+    protected function encodeUrl(string $url): string
+    {
+        return rtrim(strtr(base64_encode($url), '+/', '-_'), '=');
     }
 }

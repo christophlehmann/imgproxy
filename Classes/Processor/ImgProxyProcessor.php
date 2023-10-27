@@ -82,8 +82,8 @@ class ImgProxyProcessor implements ProcessorInterface
             );
             $urlBuilder->setResizeType('force');
         } elseif (
-            str_ends_with($processingConfiguration['width'], 'c') ||
-            str_ends_with($processingConfiguration['height'], 'c')
+            str_ends_with($processingConfiguration['width'] ?? '', 'c') ||
+            str_ends_with($processingConfiguration['height'] ?? '', 'c')
         ) {
             $urlBuilder->setResizeType('fill');
         }

@@ -45,7 +45,7 @@ class ImgProxyProcessor implements ProcessorInterface
         $sourceFileWidth = $task->getSourceFile()->getProperty('width');
         $sourceFileHeight = $task->getSourceFile()->getProperty('height');
 
-        $urlBuilder = new UrlBuilder($this->configuration['imgproxyUrl'], $this->configuration['key'], $this->configuration['salt']);
+        $urlBuilder = new UrlBuilder($this->configuration['imgproxyUrl'], $this->configuration['key'] ?? '', $this->configuration['salt'] ?? '');
         $urlBuilder->setWidth($imageDimension->getWidth())
             ->setHeight($imageDimension->getHeight())
             ->setSourceUrl($this->getPublicUrlOfSourceFile($task->getSourceFile()))

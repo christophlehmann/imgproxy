@@ -10,7 +10,7 @@ $EM_CONF['imgproxy'] = [
     'version' => '0.0.3',
     'constraints' => [
         'depends' => [
-            'typo3' => '10.5.0-12.4.99',
+            'typo3' => '13.4.0-13.4.99',
         ],
         'conflicts' => [
         ],

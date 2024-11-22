@@ -6,9 +6,3 @@ services:
 
   Lemming\ImgProxy\:
     resource: '../Classes/*'
-
-  Lemming\ImgProxy\EventListener\BeforeFileProcessing:
-    tags:
-      - name: event.listener
-        identifier: 'imgproxy'
-        event: TYPO3\CMS\Core\Resource\Event\BeforeFileProcessingEvent

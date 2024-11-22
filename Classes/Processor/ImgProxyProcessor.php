@@ -98,8 +98,7 @@ class ImgProxyProcessor implements ProcessorInterface
                 'processing_url' => $urlBuilder->generate()
             ]
         );
-
-        $task->setExecuted(true);
+        $task->setExecuted(false);
     }
 
     protected function getPublicUrlOfSourceFile(FileInterface $sourceFile): string

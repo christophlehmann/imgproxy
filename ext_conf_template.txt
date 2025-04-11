@@ -1,12 +1,14 @@
 # cat=ImgProxy/; type=string; label=imgproxy url
-imgproxyUrl=
+imgproxyUrl =
 # cat=ImgProxy/; type=string; label=Key: See IMGPROXY_KEY in https://docs.imgproxy.net
-key=
+key =
 # cat=ImgProxy/; type=string; label=Salt: See IMGPROXY_SALT
-salt=
+salt =
 # cat=ImgProxy/; type=string; label=Format quality: Overrides GFX/jpg_quality. See https://docs.imgproxy.net/generating_the_url?id=format-quality
-formatQuality=
+formatQuality =
 # cat=ImgProxy/; type=string; label=Allowed file extensions
-allowedExtensions=jpg,jpeg,webp,avif,png,tiff
+allowedExtensions = jpg,jpeg,webp,avif,png,tiff
 # cat=ImgProxy/; type=string; label=Helper url
-helperUrl=
+helperUrl =
+# cat=ImgProxy/; type=boolean; label=Ignore assets
+ignoreAssets =

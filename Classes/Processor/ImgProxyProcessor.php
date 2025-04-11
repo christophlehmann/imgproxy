@@ -6,6 +6,7 @@ use Lemming\ImgProxy\Service\UrlBuilder;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Imaging\ImageDimension;
 use TYPO3\CMS\Core\Imaging\ImageManipulation\Area;
+use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Resource\Processing\ProcessorInterface;
 use TYPO3\CMS\Core\Resource\Processing\TaskInterface;
@@ -27,13 +28,16 @@ class ImgProxyProcessor implements ProcessorInterface
         $allowedFileExtensions = GeneralUtility::trimExplode(',',
             empty($this->configuration['allowedExtensions']) ? 'jpg,jpeg,webp,avif,png,tiff' : $this->configuration['allowedExtensions']
         );
+
+        $sourceFile = $task->getSourceFile();
         return (
             !empty($this->configuration['imgproxyUrl'])
-            && $task->getSourceFile()->getStorage()->isPublic()
+            && $sourceFile->getStorage()->isPublic()
             && in_array(strtolower($task->getSourceFile()->getExtension()), $allowedFileExtensions)
             && in_array($task->getName(), ['Preview', 'CropScaleMask'], true)
-            && $task->getSourceFile()->getProperty('width') > 0
-            && $task->getSourceFile()->getProperty('height') > 0
+            && $sourceFile->getProperty('width') > 0
+            && $sourceFile->getProperty('height') > 0
+            && !($this->configuration['ignoreAssets'] ?? false) && str_starts_with($sourceFile->getPublicUrl(), '/_assets/')
         );
     }
 

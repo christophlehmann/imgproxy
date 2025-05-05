@@ -37,3 +37,10 @@ docker run \
   --publish 127.0.0.1:8080:8080 \
   -it darthsim/imgproxy
 ```
+## Run imgproxy locally with ddev
+
+1. ddev get barbieswimcrew/ddev-imgproxy
+2. ddev restart
+
+Then run `ddev describe` to get the correct value for the setting 'imgproxyUrl', which you also might have to add to your CSP rules. 
+On standard ddev setups you will need to set 'helperUrl' => 'http://web:80/'. 

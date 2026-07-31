@@ -37,7 +37,7 @@ class ImgProxyProcessor implements ProcessorInterface
             && in_array($task->getName(), ['Preview', 'CropScaleMask'], true)
             && $sourceFile->getProperty('width') > 0
             && $sourceFile->getProperty('height') > 0
-            && !($this->configuration['ignoreAssets'] ?? false) && str_starts_with($sourceFile->getPublicUrl(), '/_assets/')
+            && !((bool)($this->configuration['ignoreAssets'] ?: false) && str_starts_with($sourceFile->getPublicUrl(), '/_assets/'))
         );
     }
 
